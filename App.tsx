@@ -2,26 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Heart, 
-  ShieldCheck, 
-  Users, 
-  ArrowRight, 
-  Share2, 
   Mail, 
   MessageCircle,
-  TrendingUp,
-  History,
-  Info,
   Package,
   Stethoscope,
-  Home as HomeIcon,
-  GraduationCap,
-  Copy,
-  Check,
   Moon,
   Sun,
-  MapPin,
-  FileText,
-  HeartHandshake,
   Snowflake,
   AlertTriangle,
   Flame,
@@ -30,7 +16,6 @@ import {
 } from 'lucide-react';
 import Navbar from './components/Navbar.tsx';
 import CryptoCard from './components/CryptoCard.tsx';
-import AnimatedCounter from './components/AnimatedCounter.tsx';
 import ImpactChart from './components/ImpactChart.tsx';
 import AIChat from './components/AIChat.tsx';
 import { CRYPTO_ADDRESSES, MOCK_DONORS, IMPACT_REPORTS, NAV_LINKS, CAMPAIGN_TARGET, CURRENT_RAISED } from './constants.ts';
@@ -45,7 +30,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setShowStickyDonate(window.scrollY > 500);
+      setShowStickyDonate(window.scrollY > 400);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -85,36 +70,36 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 font-['Cairo'] ${isDarkMode ? 'bg-slate-900 text-white' : 'bg-slate-50 text-slate-900'}`}>
+    <div className={`min-h-screen transition-colors duration-300 font-['Cairo'] ${isDarkMode ? 'bg-slate-900 text-white' : 'bg-slate-50 text-slate-900'}`} dir="rtl">
       <Navbar onNavClick={handleNavClick} activeTab={activeTab} />
       
-      <main className="pt-20">
+      <main className="pt-16 sm:pt-20">
         {renderContent()}
       </main>
 
       <AIChat />
 
-      <footer className={`${isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200'} pt-24 pb-12 border-t mt-20`}>
-        <div className="container mx-auto px-4 text-right" dir="rtl">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-            <div className="lg:col-span-1">
-              <div className="flex items-center gap-2 text-2xl font-black mb-6">
-                <Heart className="w-8 h-8 text-rose-500 fill-rose-500" />
+      <footer className={`${isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200'} pt-16 pb-8 border-t mt-12`}>
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+            <div>
+              <div className="flex items-center gap-2 text-xl font-black mb-4">
+                <Heart className="w-6 h-6 text-rose-500 fill-rose-500" />
                 <span>غوث حلب</span>
               </div>
-              <p className={`${isDarkMode ? 'text-slate-400' : 'text-slate-500'} leading-relaxed`}>
-                منصة إنسانية مستقلة تهدف لإيصال المساعدات مباشرة لأهالي حي الشيخ مقصود في حلب عبر تقنية العملات الرقمية لضمان السرعة والشفافية.
+              <p className={`text-sm ${isDarkMode ? 'text-slate-400' : 'text-slate-500'} leading-relaxed`}>
+                منصة إنسانية تهدف لإيصال المساعدات مباشرة لأهالي حي الشيخ مقصود عبر العملات الرقمية لضمان الشفافية.
               </p>
             </div>
             
             <div>
-              <h4 className="font-bold mb-6">روابط سريعة</h4>
-              <ul className="space-y-4">
+              <h4 className="font-bold mb-4 text-sm uppercase tracking-wider">روابط سريعة</h4>
+              <ul className="space-y-3">
                 {NAV_LINKS.map(link => (
                   <li key={link.name}>
                     <button 
                       onClick={() => handleNavClick(link.href)}
-                      className={`${isDarkMode ? 'text-slate-400 hover:text-rose-400' : 'text-slate-500 hover:text-rose-600'} font-medium transition-colors`}
+                      className={`text-sm ${isDarkMode ? 'text-slate-400 hover:text-rose-400' : 'text-slate-500 hover:text-rose-600'} transition-colors`}
                     >
                       {link.name}
                     </button>
@@ -124,46 +109,46 @@ const App: React.FC = () => {
             </div>
 
             <div>
-              <h4 className="font-bold mb-6">تواصل معنا</h4>
-              <ul className="space-y-4">
-                <li className="flex items-center gap-3 text-slate-500">
-                  <Mail className="w-5 h-5 text-rose-500" />
+              <h4 className="font-bold mb-4 text-sm uppercase tracking-wider">تواصل مباشر</h4>
+              <ul className="space-y-3">
+                <li className="flex items-center gap-3 text-sm text-slate-500">
+                  <Mail className="w-4 h-4 text-rose-500" />
                   support@halab-aid.org
                 </li>
-                <li className="flex items-center gap-3 text-slate-500">
-                  <MessageCircle className="w-5 h-5 text-rose-500" />
-                  قناة التليجرام الرسمية
+                <li className="flex items-center gap-3 text-sm text-slate-500">
+                  <MessageCircle className="w-4 h-4 text-rose-500" />
+                  قناة التليجرام
                 </li>
               </ul>
             </div>
 
             <div>
-              <h4 className="font-bold mb-6">تنبيه قانوني</h4>
-              <p className="text-sm text-slate-400 leading-relaxed italic">
-                هذه المنصة لا تقبل العملات الورقية التقليدية. يرجى التأكد من شبكة التحويل. جميع التبرعات نهائية وتستخدم للأغراض الإنسانية المذكورة.
+              <h4 className="font-bold mb-4 text-sm uppercase tracking-wider">تنبيه</h4>
+              <p className="text-xs text-slate-400 leading-relaxed italic">
+                نقبل التبرعات بالعملات الرقمية فقط. تأكد دائماً من صحة العنوان والشبكة قبل التحويل.
               </p>
             </div>
           </div>
 
-          <div className="pt-12 border-t border-slate-200 text-center text-slate-400 text-sm">
-            <div className="flex justify-center gap-4 mb-6">
-               <button onClick={() => setIsDarkMode(!isDarkMode)} className="p-2 rounded-full border border-slate-200 hover:bg-slate-100 transition-colors">
-                 {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-               </button>
-            </div>
-            &copy; {new Date().getFullYear()} منصة غوث حلب - الشيخ مقصود. جميع الحقوق محفوظة لأعمال الخير.
+          <div className="pt-8 border-t border-slate-100 flex flex-col items-center gap-4">
+            <button onClick={() => setIsDarkMode(!isDarkMode)} className="p-2 rounded-full border border-slate-200 hover:bg-slate-100 transition-colors">
+              {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </button>
+            <p className="text-[10px] text-slate-400 font-bold">
+              &copy; {new Date().getFullYear()} غوث حلب - حي الشيخ مقصود
+            </p>
           </div>
         </div>
       </footer>
 
       {showStickyDonate && activeTab === 'home' && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-full px-6 md:hidden animate-fade-in-up">
+        <div className="fixed bottom-6 left-6 right-20 z-40 animate-fade-in-up md:hidden">
           <button 
             onClick={() => handleNavClick('#donate')}
-            className="w-full py-4 bg-rose-600 text-white rounded-2xl font-black text-center shadow-2xl shadow-rose-200 flex items-center justify-center gap-3"
+            className="w-full py-3 bg-rose-600 text-white rounded-xl font-black text-sm shadow-xl flex items-center justify-center gap-2"
           >
             تبرع الآن وأنقذ حياة
-            <Heart className="w-5 h-5 fill-white" />
+            <Heart className="w-4 h-4 fill-white" />
           </button>
         </div>
       )}
@@ -176,91 +161,92 @@ const HomeView: React.FC<{ onDonateClick: () => void, onGalleryClick: () => void
 
   return (
     <div className="animate-fade-in-up">
-      <section className="relative min-h-[95vh] flex items-center pt-20 overflow-hidden">
+      {/* Hero Section */}
+      <section className="relative h-[85vh] sm:h-[90vh] flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
             src="/hero-bg.jpg" 
-            alt="Hero Syrian Child" 
-            className="w-full h-full object-cover"
+            alt="Hero" 
+            className="w-full h-full object-cover object-center"
             onError={(e) => { e.currentTarget.src = '/gallery-1.jpg'; }}
           />
-          <div className={`absolute inset-0 ${isDarkMode ? 'bg-gradient-to-b from-slate-900/40 via-slate-900/80 to-slate-900' : 'bg-gradient-to-b from-black/60 via-black/20 to-slate-50/10'}`}></div>
+          <div className={`absolute inset-0 ${isDarkMode ? 'bg-black/60' : 'bg-black/40'}`}></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
         </div>
 
-        <div className="container mx-auto px-4 z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-6 py-2 bg-rose-600/90 text-white rounded-full font-bold text-sm mb-6 shadow-xl border border-white/20 backdrop-blur-md">
-            <Flame className="w-4 h-4 fill-white animate-pulse" />
-            نداء استغاثة: شتاء حلب القارس
+        <div className="container mx-auto px-6 z-10 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-rose-600 text-white rounded-full font-bold text-xs mb-6">
+            <Flame className="w-3.5 h-3.5 fill-white animate-pulse" />
+            استغاثة: شتاء حلب القارس
           </div>
           
-          <h1 className="text-4xl md:text-8xl font-black text-white leading-tight mb-6 drop-shadow-[0_5px_15px_rgba(0,0,0,0.5)]">
-            ساعد أهالي حلب – <br />
-            <span className="text-rose-500">الشيخ مقصود اليوم</span>
+          <h1 className="text-3xl sm:text-5xl md:text-7xl font-black text-white leading-[1.2] mb-4 drop-shadow-lg">
+            أغيثوا أهالي حلب – <br />
+            <span className="text-rose-500">الشيخ مقصود</span>
           </h1>
           
-          <p className="text-xl md:text-3xl text-white max-w-4xl mx-auto mb-10 leading-relaxed font-black drop-shadow-md">
-            تبرعك المباشر بالعملات الرقمية هو أسرع وسيلة لإيصال الدفء والغذاء لأطفال يواجهون الموت من البرد.
+          <p className="text-base sm:text-xl text-slate-100 max-w-2xl mx-auto mb-8 font-medium px-4">
+            برد الشتاء لا يرحم. تبرعك بالعملات الرقمية هو أسرع وسيلة لإيصال الدفء والغذاء للعائلات المحاصرة.
           </p>
 
-          <div className={`${isDarkMode ? 'bg-slate-800/90' : 'bg-white/95'} max-w-xl mx-auto mb-12 backdrop-blur-md p-8 rounded-[2.5rem] border border-white/20 shadow-2xl`}>
-             <div className="flex justify-between items-end mb-4" dir="rtl">
-                <div className="text-right">
-                  <span className="block text-xs text-slate-500 font-bold mb-1 uppercase tracking-wider">تم جمع</span>
-                  <span className="text-4xl font-black text-rose-600">${CURRENT_RAISED.toLocaleString()}</span>
-                </div>
-                <div className="text-left">
-                  <span className="block text-xs text-slate-500 font-bold mb-1 uppercase tracking-wider text-left">الهدف الكلي</span>
-                  <span className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-slate-800'}`}>${CAMPAIGN_TARGET.toLocaleString()}</span>
-                </div>
-             </div>
-             <div className="relative h-5 bg-slate-200/40 rounded-full overflow-hidden">
-                <div 
-                  className="absolute top-0 right-0 h-full bg-gradient-to-l from-rose-600 to-rose-400 transition-all duration-1000 ease-out rounded-full"
-                  style={{ width: `${progressPercent}%` }}
-                >
-                  <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(255,255,255,0.2)_25%,transparent_25%,transparent_50%,rgba(255,255,255,0.2)_50%,rgba(255,255,255,0.2)_75%,transparent_75%,transparent)] bg-[length:20px_20px] animate-[progress-bar-stripes_1s_linear_infinite]"></div>
-                </div>
-             </div>
-             <div className="mt-4 flex items-center justify-center gap-2 text-rose-600 font-black text-sm uppercase">
-                <Target className="w-5 h-5" />
-                <span>وصلنا إلى {progressPercent}% من هدف الطوارئ</span>
-             </div>
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center mb-10 px-4">
             <button 
               onClick={onDonateClick}
-              className="px-12 py-6 bg-rose-600 text-white rounded-2xl text-2xl font-black hover:bg-rose-700 transition-all shadow-2xl flex items-center gap-4 group hover:scale-105 active:scale-95"
+              className="px-8 py-4 bg-rose-600 text-white rounded-xl text-lg font-black hover:bg-rose-700 transition-all shadow-xl flex items-center justify-center gap-2"
             >
-              تبرع الآن وأنقذ حياة
-              <Heart className="w-6 h-6 fill-white" />
+              تبرع الآن
+              <Heart className="w-5 h-5 fill-white" />
             </button>
             <button 
               onClick={onGalleryClick}
-              className="bg-white/20 backdrop-blur-md text-white px-10 py-5 rounded-2xl text-xl font-bold border-2 border-white/30 hover:bg-white/30 transition-all inline-flex items-center gap-3 shadow-lg"
+              className="bg-white/10 backdrop-blur-md text-white px-8 py-4 rounded-xl text-lg font-bold border border-white/20 hover:bg-white/20 transition-all"
             >
               شاهد الواقع الميداني
-              <Camera className="w-5 h-5" />
             </button>
+          </div>
+
+          {/* Mini Stats Card */}
+          <div className={`${isDarkMode ? 'bg-slate-800/80' : 'bg-white/95'} max-w-sm mx-auto p-5 rounded-2xl shadow-2xl backdrop-blur-sm border border-white/10`}>
+             <div className="flex justify-between items-end mb-3">
+                <div className="text-right">
+                  <span className="block text-[10px] text-slate-500 font-bold uppercase mb-1">تم جمع</span>
+                  <span className="text-2xl font-black text-rose-600">${CURRENT_RAISED.toLocaleString()}</span>
+                </div>
+                <div className="text-left">
+                  <span className="block text-[10px] text-slate-500 font-bold mb-1 uppercase text-left">الهدف</span>
+                  <span className={`text-sm font-bold ${isDarkMode ? 'text-white' : 'text-slate-800'}`}>${CAMPAIGN_TARGET.toLocaleString()}</span>
+                </div>
+             </div>
+             <div className="relative h-3 bg-slate-200/50 rounded-full overflow-hidden">
+                <div 
+                  className="absolute top-0 right-0 h-full bg-rose-600 transition-all duration-1000 rounded-full"
+                  style={{ width: `${progressPercent}%` }}
+                ></div>
+             </div>
+             <p className="mt-3 text-[11px] text-rose-600 font-black">وصلنا إلى {progressPercent}% من هدف الطوارئ</p>
           </div>
         </div>
       </section>
 
-      <section className={`py-32 ${isDarkMode ? 'bg-slate-950' : 'bg-white'} overflow-hidden`}>
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-5xl font-black mb-6">واقع يدمي القلوب</h2>
-          <p className="text-slate-500 mb-16 max-w-3xl mx-auto text-xl leading-relaxed font-black">صور حقيقية من حي الشيخ مقصود ومخيمات النزوح، حيث يصارع الآلاف من أجل البقاء.</p>
-          <div className="columns-2 md:columns-3 lg:columns-4 gap-6 space-y-6">
+      {/* Gallery Section */}
+      <section className={`py-16 ${isDarkMode ? 'bg-slate-950' : 'bg-white'}`}>
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-black mb-4">واقع يدمي القلوب</h2>
+            <p className="text-slate-500 max-w-xl mx-auto text-sm font-medium">صور حقيقية توثق معاناة أهالينا في حي الشيخ مقصود ومخيمات النزوح.</p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {CRISIS_GALLERY.map((img, i) => (
-              <div key={i} className="relative group overflow-hidden rounded-[2rem] shadow-2xl break-inside-avoid border-4 border-white/10">
+              <div key={i} className="relative aspect-square rounded-2xl overflow-hidden shadow-lg group border border-slate-100">
                 <img 
                   src={img.url} 
-                  className="w-full h-auto object-cover group-hover:scale-105 transition-all duration-500" 
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
                   alt={img.title}
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6 text-right" dir="rtl">
-                   <p className="text-white text-lg font-black leading-tight w-full">{img.title}</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                   <p className="text-white text-xs font-bold leading-tight">{img.title}</p>
                 </div>
               </div>
             ))}
@@ -268,31 +254,29 @@ const HomeView: React.FC<{ onDonateClick: () => void, onGalleryClick: () => void
         </div>
       </section>
 
-      <section className={`py-32 ${isDarkMode ? 'bg-slate-900' : 'bg-slate-100'} relative overflow-hidden`}>
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row gap-20 items-center">
-            <div className="lg:w-1/2 relative">
-               <div className="grid grid-cols-2 gap-6">
-                  <img src="/detail-1.jpg" className="rounded-[2.5rem] shadow-2xl h-80 w-full object-cover border-8 border-white" alt="Field 1" />
-                  <img src="/detail-2.jpg" className="rounded-[2.5rem] shadow-2xl mt-12 h-80 w-full object-cover border-8 border-white" alt="Field 2" />
-               </div>
-               <div className="absolute -bottom-6 -left-6 bg-rose-600 text-white p-6 rounded-3xl shadow-2xl font-black text-2xl animate-bounce">
-                 رسالة من الميدان
+      {/* Info Section */}
+      <section className={`py-16 ${isDarkMode ? 'bg-slate-900' : 'bg-slate-50'}`}>
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col lg:flex-row gap-12 items-center">
+            <div className="w-full lg:w-1/2">
+               <div className="grid grid-cols-2 gap-4">
+                  <img src="/detail-1.jpg" className="rounded-2xl shadow-xl aspect-video object-cover border-4 border-white" alt="Field 1" />
+                  <img src="/detail-2.jpg" className="rounded-2xl shadow-xl aspect-video object-cover mt-8 border-4 border-white" alt="Field 2" />
                </div>
             </div>
-            <div className="lg:w-1/2 text-right" dir="rtl">
-              <h2 className="text-5xl font-black mb-8 leading-tight">بين صقيع الشتاء <br />وركـام المـنازل.. <br /><span className="text-rose-600 underline">أنت أملهم الوحيد</span></h2>
-              <p className="text-2xl text-slate-500 leading-relaxed mb-10 font-black">
-                حي الشيخ مقصود يعاني من حصار يمنع وصول أبسط المساعدات التقليدية. العملات الرقمية هي وسيلتنا الوحيدة لكسر القيود وإيصال الغذاء والتدفئة للأطفال.
+            <div className="w-full lg:w-1/2 text-right">
+              <h2 className="text-3xl font-black mb-6 leading-tight">بين الصقيع والركام..<br /><span className="text-rose-600">أنت أملهم الوحيد</span></h2>
+              <p className="text-lg text-slate-500 leading-relaxed mb-8 font-medium">
+                بسبب الحصار، المساعدات التقليدية تتأخر. العملات الرقمية تتيح لنا شراء الاحتياجات فوراً من الداخل وتوزيعها على العائلات الأكثر تضرراً.
               </p>
-              <div className="flex flex-wrap gap-6 justify-end">
-                 <div className={`${isDarkMode ? 'bg-slate-800 text-white' : 'bg-white text-slate-800'} flex items-center gap-3 px-6 py-4 rounded-2xl font-black shadow-xl border border-slate-200/10`}>
+              <div className="flex flex-col gap-4">
+                 <div className="flex items-center gap-4 p-4 bg-white rounded-xl shadow-sm border border-slate-100">
                     <Snowflake className="w-6 h-6 text-blue-500" />
-                    برد ينهش العظام
+                    <span className="font-bold text-sm">تأمين وقود التدفئة والحطب</span>
                  </div>
-                 <div className={`${isDarkMode ? 'bg-slate-800 text-white' : 'bg-white text-slate-800'} flex items-center gap-3 px-6 py-4 rounded-2xl font-black shadow-xl border border-slate-200/10`}>
+                 <div className="flex items-center gap-4 p-4 bg-white rounded-xl shadow-sm border border-slate-100">
                     <AlertTriangle className="w-6 h-6 text-amber-500" />
-                    خطر المجاعة
+                    <span className="font-bold text-sm">توزيع وجبات ساخنة وسلال غذائية</span>
                  </div>
               </div>
             </div>
@@ -300,15 +284,12 @@ const HomeView: React.FC<{ onDonateClick: () => void, onGalleryClick: () => void
         </div>
       </section>
 
-      <section id="donate" className="py-32 bg-slate-950 relative">
-        <div className="absolute inset-0 opacity-10 pointer-events-none">
-           <div className="absolute top-0 left-0 w-96 h-96 bg-rose-600 rounded-full blur-[150px]"></div>
-           <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-600 rounded-full blur-[150px]"></div>
-        </div>
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <h2 className="text-5xl md:text-7xl font-black text-white mb-6">تبرع الآن بالكريبتو</h2>
-          <p className="text-slate-400 mb-20 max-w-2xl mx-auto text-2xl font-black">وسيلة تبرع آمنة وسريعة تصل مباشرة لمن يحتاجها في حلب.</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-6xl mx-auto">
+      {/* Donation Cards */}
+      <section id="donate" className="py-20 bg-slate-950">
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-3xl sm:text-4xl font-black text-white mb-4">تبرع بالكريبتو</h2>
+          <p className="text-slate-400 mb-12 max-w-md mx-auto text-sm font-medium">اختر العملة المناسبة لك وانسخ العنوان للتحويل.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {CRYPTO_ADDRESSES.map((crypto, i) => (
               <CryptoCard key={i} crypto={crypto} />
             ))}
@@ -320,22 +301,20 @@ const HomeView: React.FC<{ onDonateClick: () => void, onGalleryClick: () => void
 };
 
 const AboutView: React.FC = () => (
-  <div className="container mx-auto px-4 py-24 animate-fade-in-up">
-    <div className="max-w-5xl mx-auto text-center">
-      <h1 className="text-5xl font-black mb-12">عن حملة الشيخ مقصود</h1>
-      <div className="relative mb-16 group">
+  <div className="container mx-auto px-6 py-12 animate-fade-in-up">
+    <div className="max-w-3xl mx-auto text-center">
+      <h1 className="text-3xl font-black mb-8">عن منصة غوث حلب</h1>
+      <div className="rounded-3xl overflow-hidden mb-8 shadow-xl relative aspect-video">
         <img 
           src="/about-main.jpg" 
-          className="w-full h-[600px] object-cover rounded-[4rem] shadow-2xl filter brightness-75 group-hover:brightness-90 transition-all" 
+          className="w-full h-full object-cover brightness-50" 
           alt="About" 
           onError={(e) => { e.currentTarget.src = '/gallery-2.jpg'; }}
         />
-        <div className="absolute inset-0 flex items-center justify-center p-12">
-           <div className="bg-black/60 backdrop-blur-md p-10 rounded-[3rem] border border-white/10 max-w-3xl">
-              <p className="text-2xl text-white font-black leading-relaxed text-right" dir="rtl">
-                هذه المنصة مبادرة إنسانية تهدف لتأمين الاحتياجات الأساسية لسكان حي الشيخ مقصود في حلب. نعتمد العملات الرقمية لضمان سرعة التحويل وتجاوز العقبات البنكية، لضمان وصول كل دولار لفاعله الحقيقي.
-              </p>
-           </div>
+        <div className="absolute inset-0 flex items-center justify-center p-6">
+           <p className="text-white font-bold leading-relaxed text-sm sm:text-base text-right">
+             نحن فريق من المتطوعين المستقلين نهدف لتسهيل وصول المساعدات لسكان حي الشيخ مقصود. نستخدم التكنولوجيا لخدمة الإنسانية وتجاوز العوائق المالية التقليدية.
+           </p>
         </div>
       </div>
     </div>
@@ -343,46 +322,44 @@ const AboutView: React.FC = () => (
 );
 
 const WhereView: React.FC = () => (
-  <div className="container mx-auto px-4 py-24 text-center animate-fade-in-up">
-    <h1 className="text-5xl font-black mb-16">أين تذهب تبرعاتك؟</h1>
-    <div className="max-w-3xl mx-auto bg-white p-16 rounded-[4rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] border border-slate-100 mb-16">
+  <div className="container mx-auto px-6 py-12 text-center animate-fade-in-up">
+    <h1 className="text-3xl font-black mb-8">شفافية توزيع التبرعات</h1>
+    <div className="max-w-lg mx-auto bg-white p-6 rounded-3xl shadow-lg border border-slate-100 mb-12">
       <ImpactChart />
     </div>
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
-       <div className="p-10 bg-emerald-50 rounded-[3rem] border border-emerald-100 shadow-xl">
-          <Package className="w-16 h-16 text-emerald-600 mx-auto mb-6" />
-          <h3 className="font-black text-2xl mb-4 text-slate-800">سلال غذائية</h3>
-          <p className="text-slate-600 text-lg font-bold">تأمين الغذاء للأطفال والأرامل.</p>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+       <div className="p-6 bg-emerald-50 rounded-2xl border border-emerald-100">
+          <Package className="w-10 h-10 text-emerald-600 mx-auto mb-4" />
+          <h3 className="font-black text-lg mb-2 text-slate-800">غذاء</h3>
+          <p className="text-xs text-slate-600 font-bold">تأمين سلال غذائية متكاملة للأسر.</p>
        </div>
-       <div className="p-10 bg-blue-50 rounded-[3rem] border border-blue-100 shadow-xl">
-          <Stethoscope className="w-16 h-16 text-blue-600 mx-auto mb-6" />
-          <h3 className="font-black text-2xl mb-4 text-slate-800">مستلزمات طبية</h3>
-          <p className="text-slate-600 text-lg font-bold">أدوية وحالات طارئة لسكان الحي.</p>
+       <div className="p-6 bg-blue-50 rounded-2xl border border-blue-100">
+          <Stethoscope className="w-10 h-10 text-blue-600 mx-auto mb-4" />
+          <h3 className="font-black text-lg mb-2 text-slate-800">صحة</h3>
+          <p className="text-xs text-slate-600 font-bold">تغطية تكاليف الأدوية والحالات الطارئة.</p>
        </div>
-       <div className="p-10 bg-amber-50 rounded-[3rem] border border-amber-100 shadow-xl">
-          <Flame className="w-16 h-16 text-amber-600 mx-auto mb-6" />
-          <h3 className="font-black text-2xl mb-4 text-slate-800">دفء الشتاء</h3>
-          <p className="text-slate-600 text-lg font-bold">الحطب والمحروقات والمدافئ للأسر.</p>
+       <div className="p-6 bg-amber-50 rounded-2xl border border-amber-100">
+          <Flame className="w-10 h-10 text-amber-600 mx-auto mb-4" />
+          <h3 className="font-black text-lg mb-2 text-slate-800">دفء</h3>
+          <p className="text-xs text-slate-600 font-bold">توفير مواد التدفئة في الشتاء.</p>
        </div>
     </div>
   </div>
 );
 
 const ImpactView: React.FC = () => (
-  <div className="container mx-auto px-4 py-24 animate-fade-in-up">
-    <h1 className="text-5xl font-black mb-16 text-center">تقارير الميدان</h1>
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+  <div className="container mx-auto px-6 py-12 animate-fade-in-up">
+    <h1 className="text-3xl font-black mb-10 text-center">آخر النشاطات</h1>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
       {IMPACT_REPORTS.map(report => (
-        <div key={report.id} className="bg-white rounded-[3.5rem] shadow-2xl border border-slate-100 overflow-hidden group">
-          <div className="h-72 overflow-hidden">
-             <img src={report.imageUrl} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={report.title} />
-          </div>
-          <div className="p-10 text-right" dir="rtl">
-            <h3 className="text-3xl font-black mb-6 text-slate-900">{report.title}</h3>
-            <p className="text-slate-500 text-xl mb-8 leading-relaxed font-black">{report.description}</p>
-            <div className="flex justify-between items-center pt-8 border-t border-slate-100">
-              <span className="text-rose-600 font-black text-xl">{report.date}</span>
-              <span className="px-5 py-2 bg-rose-50 text-rose-600 rounded-2xl text-sm font-black uppercase">{report.category}</span>
+        <div key={report.id} className="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden group">
+          <img src={report.imageUrl} className="w-full h-48 object-cover" alt={report.title} />
+          <div className="p-6 text-right">
+            <h3 className="text-xl font-black mb-3 text-slate-900">{report.title}</h3>
+            <p className="text-slate-500 text-sm mb-4 leading-relaxed font-bold">{report.description}</p>
+            <div className="flex justify-between items-center pt-4 border-t border-slate-50 text-[10px] font-black uppercase text-rose-600">
+              <span>{report.date}</span>
+              <span className="bg-rose-50 px-2 py-1 rounded">{report.category}</span>
             </div>
           </div>
         </div>
@@ -392,14 +369,12 @@ const ImpactView: React.FC = () => (
 );
 
 const DonorsView: React.FC = () => (
-  <div className="container mx-auto px-4 py-24 text-center animate-fade-in-up">
-    <h1 className="text-5xl font-black mb-16">جدار الإنسانية</h1>
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
+  <div className="container mx-auto px-6 py-12 text-center animate-fade-in-up">
+    <h1 className="text-3xl font-black mb-10">فاعلو الخير</h1>
+    <div className="flex flex-wrap justify-center gap-4 max-w-2xl mx-auto">
       {MOCK_DONORS.map(donor => (
-        <div key={donor.id} className="bg-white p-12 rounded-[3rem] shadow-xl border border-slate-100 font-black text-2xl flex items-center justify-center gap-4 hover:shadow-2xl transition-all hover:-translate-y-2 text-slate-800">
-           <div className="w-12 h-12 bg-rose-100 rounded-full flex items-center justify-center">
-             <Heart className="w-6 h-6 text-rose-600 fill-rose-600" />
-           </div>
+        <div key={donor.id} className="bg-white px-6 py-4 rounded-xl shadow-sm border border-slate-100 font-bold text-sm flex items-center gap-3 text-slate-700">
+           <Heart className="w-4 h-4 text-rose-500 fill-rose-500" />
            {donor.name}
         </div>
       ))}
@@ -408,15 +383,13 @@ const DonorsView: React.FC = () => (
 );
 
 const ContactView: React.FC = () => (
-  <div className="container mx-auto px-4 py-24 text-center animate-fade-in-up">
-    <h1 className="text-5xl font-black mb-12">تواصل معنا</h1>
-    <div className="max-w-3xl mx-auto bg-white p-20 rounded-[4rem] shadow-2xl border border-slate-100" dir="rtl">
-       <p className="text-2xl text-slate-600 mb-12 font-black leading-relaxed">لأي استفسار عن حالة الأسر أو الحملة، راسلنا مباشرة:</p>
-       <div className="space-y-6">
-          <a href="mailto:support@halab-aid.org" className="flex items-center justify-center gap-4 text-3xl font-black text-rose-600 hover:scale-105 transition-transform">
-             <Mail className="w-10 h-10" /> support@halab-aid.org
-          </a>
-       </div>
+  <div className="container mx-auto px-6 py-12 text-center animate-fade-in-up">
+    <h1 className="text-3xl font-black mb-8">تواصل معنا</h1>
+    <div className="max-w-md mx-auto bg-white p-10 rounded-3xl shadow-xl border border-slate-100">
+       <p className="text-sm text-slate-600 mb-8 font-bold leading-relaxed">للاستفسارات المباشرة أو التطوع:</p>
+       <a href="mailto:support@halab-aid.org" className="text-xl font-black text-rose-600 block hover:underline">
+          support@halab-aid.org
+       </a>
     </div>
   </div>
 );
