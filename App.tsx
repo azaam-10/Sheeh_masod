@@ -171,7 +171,7 @@ const HomeView: React.FC<{ onDonateClick: () => void, onGalleryClick: () => void
     <section className="relative min-h-[95vh] flex items-center pt-20 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img 
-          src="/%D8%AA%D9%86%D8%B2%D9%8A%D9%84%20(2).jpeg" 
+          src="تنزيل (2).jpeg" 
           alt="Hero" 
           className="w-full h-full object-cover opacity-40 blur-[1px]"
           onError={(e) => { e.currentTarget.src = "https://images.unsplash.com/photo-1540333063872-a415b2b5331f?q=80&w=2070&auto=format&fit=crop" }}
@@ -233,13 +233,13 @@ const HomeView: React.FC<{ onDonateClick: () => void, onGalleryClick: () => void
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-4xl font-black text-slate-900 mb-12">معرض الألم والأمل</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {CRISIS_GALLERY.slice(0, 10).map((img, i) => (
+          {CRISIS_GALLERY.slice(0, 15).map((img, i) => (
             <div key={i} className="relative group overflow-hidden rounded-2xl shadow-lg aspect-square">
               <img 
                 src={img.url} 
                 className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110" 
                 alt={img.title}
-                onError={(e) => { e.currentTarget.src = `https://picsum.photos/seed/${i}/400/400` }}
+                onError={(e) => { e.currentTarget.style.display = 'none'; }}
               />
             </div>
           ))}
@@ -252,8 +252,8 @@ const HomeView: React.FC<{ onDonateClick: () => void, onGalleryClick: () => void
         <div className="flex flex-col lg:flex-row gap-16 items-center">
           <div className="lg:w-1/2 relative">
              <div className="grid grid-cols-2 gap-4">
-                <img src="/%D8%AA%D9%86%D8%B2%D9%8I%D9%84%20(5).jpeg" className="rounded-2xl shadow-lg h-64 w-full object-cover" alt="Detail 1" onError={(e) => { e.currentTarget.src = "https://picsum.photos/seed/d1/400/400" }} />
-                <img src="/%D8%AA%D9%86%D8%B2%D9%8I%D9%84%20(6).jpeg" className="rounded-2xl shadow-lg mt-8 h-64 w-full object-cover" alt="Detail 2" onError={(e) => { e.currentTarget.src = "https://picsum.photos/seed/d2/400/400" }} />
+                <img src="تنزيل (5).jpeg" className="rounded-2xl shadow-lg h-64 w-full object-cover" alt="Detail 1" />
+                <img src="تنزيل (6).jpeg" className="rounded-2xl shadow-lg mt-8 h-64 w-full object-cover" alt="Detail 2" />
              </div>
           </div>
           <div className="lg:w-1/2">
@@ -294,12 +294,11 @@ const AboutView: React.FC = () => (
     <div className="max-w-4xl mx-auto">
       <h1 className="text-4xl font-black mb-8 text-center">عن حي الشيخ مقصود</h1>
       <img 
-        src="/%D8%AA%D9%86%D8%B2%D9%8I%D9%84%20(11).jpeg" 
+        src="تنزيل (11).jpeg" 
         className="w-full h-[450px] object-cover rounded-[3rem] shadow-2xl mb-12" 
         alt="Aleppo About" 
-        onError={(e) => { e.currentTarget.src = "https://picsum.photos/seed/about/800/400" }}
       />
-      <div className="prose prose-lg max-w-none text-slate-700 leading-loose">
+      <div className="prose prose-lg max-w-none text-slate-700 leading-loose text-center">
         <p className="text-xl">
           يعاني حي الشيخ مقصود في مدينة حلب من ظروف إنسانية بالغة الصعوبة نتيجة سنوات من الحصار ونقص الخدمات الأساسية. هذه المنصة أُنشئت لتكون وسيلة آمنة وسريعة لتقديم الدعم المباشر للعائلات المحتاجة.
         </p>
