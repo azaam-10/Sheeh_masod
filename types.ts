@@ -23,3 +23,8 @@ export interface ImpactReport {
   imageUrl?: string;
   category: 'food' | 'medicine' | 'shelter' | 'education' | 'emergency';
 }
+
+export interface ChatMessage {
+  role: 'user' | 'model';
+  text: string;
+}

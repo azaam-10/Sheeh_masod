@@ -1,18 +1,16 @@
 
 export const CRISIS_GALLERY = [
-  { url: "/%D8%AA%D9%86%D8%B2%D9%8A%D9%84%20(2).jpeg", title: "أطفال يبحثون عن الدفء" },
-  { url: "/%D8%AA%D9%86%D8%B2%D9%8A%D9%84%20(5).jpeg", title: "دموع الطفولة وسط الطين" },
-  { url: "/%D8%AA%D9%86%D8%B2%D9%8A%D9%84%20(6).jpeg", title: "آثار القصف والدمار" },
-  { url: "/%D8%AA%D9%86%D8%B2%D9%8A%D9%84%20(8).jpeg", title: "معاناة الشتاء في حي الشيخ مقصود" },
-  { url: "/images%20(21).jpeg", title: "بيوت مهدومة وأمل مفقود" },
-  { url: "/%D8%AA%D9%86%D8%B2%D9%8A%D9%84%20(10).jpeg", title: "الحياة وسط الركام" },
-  { url: "/%D8%AA%D9%86%D8%B2%D9%8A%D9%84%20(11).jpeg", title: "نداء استغاثة صامت" },
-  { url: "/images%20(24).jpeg", title: "شتاء حلب القارس" },
-  { url: "/%D8%AA%D9%86%D8%B2%D9%8A%D9%84%20(9).jpeg", title: "واقع مرير يحتاج لتدخلك" },
-  { url: "/images%20(22).jpeg", title: "أحلام مدفونة تحت الأنقاض" },
-  { url: "/%D8%AA%D9%86%D8%B2%D9%8A%D9%84%20(4).jpeg", title: "أطفال يرتجفون من البرد" },
-  { url: "/%D8%AA%D9%86%D8%B2%D9%8A%D9%84%20(3).jpeg", title: "مشاهد من قلب المعاناة" },
-  { url: "/%D8%AA%D9%86%D8%B2%D9%8A%D9%84%20(7).jpeg", title: "النزوح والبحث عن مأوى" },
-  { url: "/images%20(23).jpeg", title: "دمار شامل وبكاء مسموع" },
-  { url: "/images%20(20).jpeg", title: "أهالي حلب في مواجهة الكارثة" }
+  { url: "/gallery-1.jpg", title: "أطفال يبحثون عن الدفء" },
+  { url: "/gallery-2.jpg", title: "دموع الطفولة وسط الطين" },
+  { url: "/gallery-3.jpg", title: "النزوح والبحث عن مأوى" },
+  { url: "/gallery-4.jpg", title: "معاناة الشتاء في حي الشيخ مقصود" },
+  { url: "/gallery-5.jpg", title: "واقع مرير يحتاج لتدخلك" },
+  { url: "/gallery-6.jpg", title: "الحياة وسط الركام" },
+  { url: "/gallery-7.jpg", title: "أهالي حلب في مواجهة الكارثة" },
+  { url: "/gallery-8.jpg", title: "بيوت مهدومة وأمل مفقود" },
+  { url: "/gallery-9.jpg", title: "أحلام مدفونة تحت الأنقاض" },
+  { url: "/gallery-10.jpg", title: "دمار شامل وبكاء مسموع" },
+  { url: "/gallery-11.jpg", title: "شتاء حلب القارس" },
+  { url: "/detail-1.jpg", title: "واقع ميداني مرير" },
+  { url: "/detail-2.jpg", title: "آثار الدمار" }
 ];

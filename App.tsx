@@ -25,13 +25,15 @@ import {
   Snowflake,
   AlertTriangle,
   Flame,
-  Camera
+  Camera,
+  Target
 } from 'lucide-react';
 import Navbar from './components/Navbar.tsx';
 import CryptoCard from './components/CryptoCard.tsx';
 import AnimatedCounter from './components/AnimatedCounter.tsx';
 import ImpactChart from './components/ImpactChart.tsx';
-import { CRYPTO_ADDRESSES, MOCK_DONORS, IMPACT_REPORTS, NAV_LINKS } from './constants.ts';
+import AIChat from './components/AIChat.tsx';
+import { CRYPTO_ADDRESSES, MOCK_DONORS, IMPACT_REPORTS, NAV_LINKS, CAMPAIGN_TARGET, CURRENT_RAISED } from './constants.ts';
 import { CRISIS_GALLERY } from './galleryData.ts';
 
 type Tab = 'home' | 'about' | 'where' | 'impact' | 'donors' | 'contact';
@@ -65,7 +67,7 @@ const App: React.FC = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 'home':
-        return <HomeView onDonateClick={() => handleNavClick('#donate')} onGalleryClick={() => handleNavClick('#impact')} />;
+        return <HomeView onDonateClick={() => handleNavClick('#donate')} onGalleryClick={() => handleNavClick('#impact')} isDarkMode={isDarkMode} />;
       case 'about':
         return <AboutView />;
       case 'where':
@@ -77,7 +79,7 @@ const App: React.FC = () => {
       case 'contact':
         return <ContactView />;
       default:
-        return <HomeView onDonateClick={() => handleNavClick('#donate')} onGalleryClick={() => handleNavClick('#impact')} />;
+        return <HomeView onDonateClick={() => handleNavClick('#donate')} onGalleryClick={() => handleNavClick('#impact')} isDarkMode={isDarkMode} />;
     }
   };
 
@@ -88,6 +90,8 @@ const App: React.FC = () => {
       <main className="pt-20">
         {renderContent()}
       </main>
+
+      <AIChat />
 
       <footer className={`${isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200'} pt-24 pb-12 border-t mt-20`}>
         <div className="container mx-auto px-4">
@@ -166,137 +170,174 @@ const App: React.FC = () => {
   );
 };
 
-const HomeView: React.FC<{ onDonateClick: () => void, onGalleryClick: () => void }> = ({ onDonateClick, onGalleryClick }) => (
-  <div className="animate-fade-in-up">
-    <section className="relative min-h-[95vh] flex items-center pt-20 overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <img 
-          src="/%D8%AA%D9%86%D8%B2%D9%8A%D9%84%20(2).jpeg" 
-          alt="Hero" 
-          className="w-full h-full object-cover opacity-40 blur-[1px]"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-50/20 via-slate-50/70 to-slate-50"></div>
-      </div>
+const HomeView: React.FC<{ onDonateClick: () => void, onGalleryClick: () => void, isDarkMode: boolean }> = ({ onDonateClick, onGalleryClick, isDarkMode }) => {
+  const progressPercent = Math.round((CURRENT_RAISED / CAMPAIGN_TARGET) * 100);
 
-      <div className="container mx-auto px-4 z-10 text-center">
-        <div className="inline-flex items-center gap-2 px-6 py-2 bg-rose-100 text-rose-600 rounded-full font-bold text-sm mb-6 shadow-sm">
-          <Flame className="w-4 h-4 fill-rose-600 animate-pulse" />
-          نداء إنساني عاجل: أنقذوهم من البرد والجوع
-        </div>
-        
-        <h1 className="text-4xl md:text-7xl font-black text-slate-900 leading-tight mb-6">
-          ساعد أهالي حلب – <br />
-          <span className="text-rose-600">الشيخ مقصود اليوم</span>
-        </h1>
-        
-        <p className="text-xl md:text-2xl text-slate-800 max-w-4xl mx-auto mb-10 leading-relaxed font-semibold">
-          تبرعك اليوم قد يكون سبباً في إنقاذ أسرة، توفير دواء، أو إطعام طفل يرتجف من البرد. نحن نوصل مساعدتك مباشرة.
-        </p>
-
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button 
-            onClick={onDonateClick}
-            className="px-12 py-6 bg-rose-600 text-white rounded-2xl text-2xl font-black hover:bg-rose-700 transition-all shadow-2xl flex items-center gap-4 group hover:scale-105"
-          >
-            تبرع الآن وكن سببًا في إنقاذ حياة
-            <Heart className="w-6 h-6 fill-white" />
-          </button>
-          <button 
-            onClick={onGalleryClick}
-            className="px-10 py-5 bg-white text-slate-700 rounded-2xl text-xl font-bold border-2 border-slate-200 hover:bg-slate-50 transition-all inline-flex items-center gap-3"
-          >
-            شاهد الواقع الميداني
-            <Camera className="w-5 h-5" />
-          </button>
+  return (
+    <div className="animate-fade-in-up">
+      <section className="relative min-h-[95vh] flex items-center pt-20 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/hero-bg.jpg" 
+            alt="Hero" 
+            className="w-full h-full object-cover opacity-60 blur-[1px]"
+            onError={(e) => { e.currentTarget.src = 'https://picsum.photos/seed/aleppo/1920/1080' }}
+          />
+          <div className={`absolute inset-0 ${isDarkMode ? 'bg-gradient-to-b from-slate-900/20 via-slate-900/70 to-slate-900' : 'bg-gradient-to-b from-slate-50/20 via-slate-50/70 to-slate-50'}`}></div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 max-w-5xl mx-auto p-8 bg-white/90 backdrop-blur-md rounded-[3rem] shadow-2xl border border-white">
-          {[
-            { label: 'أثر التبرعات بالدولار', end: 12500, prefix: '$' },
-            { label: 'أسرة تم إغاثتها', end: 450, suffix: '+' },
-            { label: 'وجبة دافئة تم تقديمها', end: 2800 },
-            { label: 'ثقة وشفافية مطلقة', end: 100, suffix: '%' }
-          ].map((stat, i) => (
-            <div key={i} className="text-center">
-              <div className="text-3xl md:text-4xl font-black text-rose-600 mb-1">
-                <AnimatedCounter end={stat.end} prefix={stat.prefix} suffix={stat.suffix} />
-              </div>
-              <div className="text-sm font-bold text-slate-500">{stat.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+        <div className="container mx-auto px-4 z-10 text-center">
+          <div className="inline-flex items-center gap-2 px-6 py-2 bg-rose-100 text-rose-600 rounded-full font-bold text-sm mb-6 shadow-sm">
+            <Flame className="w-4 h-4 fill-rose-600 animate-pulse" />
+            نداء إنساني عاجل: أنقذوهم من البرد والجوع
+          </div>
+          
+          <h1 className={`text-4xl md:text-7xl font-black ${isDarkMode ? 'text-white' : 'text-slate-900'} leading-tight mb-6`}>
+            ساعد أهالي حلب – <br />
+            <span className="text-rose-600">الشيخ مقصود اليوم</span>
+          </h1>
+          
+          <p className={`text-xl md:text-2xl ${isDarkMode ? 'text-slate-200' : 'text-slate-800'} max-w-4xl mx-auto mb-10 leading-relaxed font-semibold`}>
+            تبرعك اليوم قد يكون سبباً في إنقاذ أسرة، توفير دواء، أو إطعام طفل يرتجف من البرد. نحن نوصل مساعدتك مباشرة.
+          </p>
 
-    <section className="py-24 bg-white overflow-hidden">
-      <div className="container mx-auto px-4 text-center">
-        <h2 className="text-4xl font-black text-slate-900 mb-12">معرض الألم والأمل</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {CRISIS_GALLERY.map((img, i) => (
-            <div key={i} className="relative group overflow-hidden rounded-2xl shadow-lg aspect-square">
-              <img 
-                src={img.url} 
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110" 
-                alt={img.title}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section className="py-24 bg-slate-50">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col lg:flex-row gap-16 items-center">
-          <div className="lg:w-1/2 relative">
-             <div className="grid grid-cols-2 gap-4">
-                <img src="/%D8%AA%D9%86%D8%B2%D9%8A%D9%84%20(5).jpeg" className="rounded-2xl shadow-lg h-64 w-full object-cover" alt="Detail 1" />
-                <img src="/%D8%AA%D9%86%D8%B2%D9%8A%D9%84%20(6).jpeg" className="rounded-2xl shadow-lg mt-8 h-64 w-full object-cover" alt="Detail 2" />
+          <div className={`${isDarkMode ? 'bg-slate-800/60' : 'bg-white/60'} max-w-xl mx-auto mb-12 backdrop-blur-md p-6 rounded-3xl border border-white/20 shadow-xl`}>
+             <div className="flex justify-between items-end mb-3">
+                <div className="text-right">
+                  <span className="block text-xs text-slate-500 font-bold mb-1 uppercase tracking-wider">تم جمع</span>
+                  <span className="text-3xl font-black text-rose-600">${CURRENT_RAISED.toLocaleString()}</span>
+                </div>
+                <div className="text-left">
+                  <span className="block text-xs text-slate-500 font-bold mb-1 uppercase tracking-wider text-left">الهدف الكلي</span>
+                  <span className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-slate-800'}`}>${CAMPAIGN_TARGET.toLocaleString()}</span>
+                </div>
+             </div>
+             <div className="relative h-4 bg-slate-200/30 rounded-full overflow-hidden">
+                <div 
+                  className="absolute top-0 right-0 h-full bg-gradient-to-l from-rose-500 to-rose-400 transition-all duration-1000 ease-out rounded-full"
+                  style={{ width: `${progressPercent}%` }}
+                >
+                  <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(255,255,255,0.2)_25%,transparent_25%,transparent_50%,rgba(255,255,255,0.2)_50%,rgba(255,255,255,0.2)_75%,transparent_75%,transparent)] bg-[length:20px_20px] animate-[progress-bar-stripes_1s_linear_infinite]"></div>
+                </div>
+             </div>
+             <div className="mt-3 flex items-center justify-center gap-2 text-rose-600 font-bold text-sm">
+                <Target className="w-4 h-4" />
+                <span>وصلنا إلى {progressPercent}% من هدف الشتاء</span>
              </div>
           </div>
-          <div className="lg:w-1/2">
-            <h2 className="text-4xl font-black text-slate-900 mb-8 leading-tight">بين البرد القارس والركام.. <br /><span className="text-rose-600">هناك من ينتظرك</span></h2>
-            <p className="text-lg text-slate-600 leading-relaxed mb-8">
-              المعاناة هنا ليست مجرد أرقام، بل هي قصص حية لأسر فقدت بيوتها، وتعيش الآن في ظروف قاسية لا تقيهم برد الشتاء. نحن نسابق الزمن لتأمين التدفئة والغذاء.
-            </p>
-            <div className="flex flex-wrap gap-4">
-               <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-xl font-bold text-slate-700 shadow-sm border border-slate-100">
-                  <Snowflake className="w-5 h-5 text-blue-500" />
-                  برد الشتاء القارس
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button 
+              onClick={onDonateClick}
+              className="px-12 py-6 bg-rose-600 text-white rounded-2xl text-2xl font-black hover:bg-rose-700 transition-all shadow-2xl flex items-center gap-4 group hover:scale-105"
+            >
+              تبرع الآن وكن سببًا في إنقاذ حياة
+              <Heart className="w-6 h-6 fill-white" />
+            </button>
+            <button 
+              onClick={onGalleryClick}
+              className={`${isDarkMode ? 'bg-slate-700 text-white' : 'bg-white text-slate-700'} px-10 py-5 rounded-2xl text-xl font-bold border-2 border-slate-200/20 hover:bg-slate-50/10 transition-all inline-flex items-center gap-3`}
+            >
+              شاهد الواقع الميداني
+              <Camera className="w-5 h-5" />
+            </button>
+          </div>
+
+          <div className={`${isDarkMode ? 'bg-slate-800/90' : 'bg-white/90'} grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 max-w-5xl mx-auto p-8 backdrop-blur-md rounded-[3rem] shadow-2xl border border-white/20`}>
+            {[
+              { label: 'أثر التبرعات بالدولار', end: CURRENT_RAISED, prefix: '$' },
+              { label: 'أسرة تم إغاثتها', end: 450, suffix: '+' },
+              { label: 'وجبة دافئة تم تقديمها', end: 2800 },
+              { label: 'ثقة وشفافية مطلقة', end: 100, suffix: '%' }
+            ].map((stat, i) => (
+              <div key={i} className="text-center">
+                <div className="text-3xl md:text-4xl font-black text-rose-600 mb-1">
+                  <AnimatedCounter end={stat.end} prefix={stat.prefix} suffix={stat.suffix} />
+                </div>
+                <div className="text-sm font-bold text-slate-500">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={`py-24 ${isDarkMode ? 'bg-slate-900' : 'bg-white'} overflow-hidden`}>
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-4xl font-black mb-4">معرض الألم والأمل</h2>
+          <p className="text-slate-500 mb-12 max-w-2xl mx-auto text-lg">مشاهد من واقع حي الشيخ مقصود الذي يصارع البقاء وسط أنقاض الدمار وبرد الشتاء.</p>
+          <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+            {CRISIS_GALLERY.map((img, i) => (
+              <div key={i} className="relative group overflow-hidden rounded-2xl shadow-lg break-inside-avoid">
+                <img 
+                  src={img.url} 
+                  className="w-full h-auto object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110" 
+                  alt={img.title}
+                  onError={(e) => { e.currentTarget.src = `https://picsum.photos/seed/${i}/400/600` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                   <p className="text-white text-sm font-bold text-right w-full">{img.title}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={`py-24 ${isDarkMode ? 'bg-slate-800' : 'bg-slate-50'}`}>
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col lg:flex-row gap-16 items-center">
+            <div className="lg:w-1/2 relative">
+               <div className="grid grid-cols-2 gap-4">
+                  <img src="/detail-1.jpg" className="rounded-2xl shadow-lg h-64 w-full object-cover" alt="Detail 1" onError={(e) => { e.currentTarget.src = 'https://picsum.photos/seed/d1/600/400' }} />
+                  <img src="/detail-2.jpg" className="rounded-2xl shadow-lg mt-8 h-64 w-full object-cover" alt="Detail 2" onError={(e) => { e.currentTarget.src = 'https://picsum.photos/seed/d2/600/400' }} />
                </div>
-               <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-xl font-bold text-slate-700 shadow-sm border border-slate-100">
-                  <Package className="w-5 h-5 text-emerald-500" />
-                  نقص حاد في الغذاء
-               </div>
+            </div>
+            <div className="lg:w-1/2">
+              <h2 className="text-4xl font-black mb-8 leading-tight">بين البرد القارس والركام.. <br /><span className="text-rose-600">هناك من ينتظرك</span></h2>
+              <p className="text-lg text-slate-400 leading-relaxed mb-8">
+                المعاناة هنا ليست مجرد أرقام، بل هي قصص حية لأسر فقدت بيوتها، وتعيش الآن في ظروف قاسية لا تقيهم برد الشتاء. نحن نسابق الزمن لتأمين التدفئة والغذاء.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                 <div className={`${isDarkMode ? 'bg-slate-700 text-white' : 'bg-white text-slate-700'} flex items-center gap-2 px-4 py-2 rounded-xl font-bold shadow-sm border border-slate-100/10`}>
+                    <Snowflake className="w-5 h-5 text-blue-500" />
+                    برد الشتاء القارس
+                 </div>
+                 <div className={`${isDarkMode ? 'bg-slate-700 text-white' : 'bg-white text-slate-700'} flex items-center gap-2 px-4 py-2 rounded-xl font-bold shadow-sm border border-slate-100/10`}>
+                    <Package className="w-5 h-5 text-emerald-500" />
+                    نقص حاد في الغذاء
+                 </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="donate" className="py-24 bg-slate-900 relative">
-      <div className="container mx-auto px-4 text-center">
-        <h2 className="text-4xl md:text-5xl font-black text-white mb-16">ساهم في إنقاذهم الآن</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {CRYPTO_ADDRESSES.map((crypto, i) => (
-            <CryptoCard key={i} crypto={crypto} />
-          ))}
+      <section id="donate" className="py-24 bg-slate-900 relative">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-4">ساهم في إنقاذهم الآن</h2>
+          <p className="text-slate-400 mb-16 max-w-xl mx-auto">اختر العملة الرقمية المناسبة لك وقم بالتحويل مباشرة لدعم العائلات المحتاجة.</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {CRYPTO_ADDRESSES.map((crypto, i) => (
+              <CryptoCard key={i} crypto={crypto} />
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
-  </div>
-);
+      </section>
+    </div>
+  );
+};
 
 const AboutView: React.FC = () => (
   <div className="container mx-auto px-4 py-16 animate-fade-in-up">
-    <div className="max-w-4xl mx-auto">
-      <h1 className="text-4xl font-black mb-8 text-center">عن حي الشيخ مقصود</h1>
+    <div className="max-w-4xl mx-auto text-center">
+      <h1 className="text-4xl font-black mb-8">عن حي الشيخ مقصود</h1>
       <img 
-        src="/%D8%AA%D9%86%D8%B2%D9%8A%D9%84%20(11).jpeg" 
+        src="/about-main.jpg" 
         className="w-full h-[450px] object-cover rounded-[3rem] shadow-2xl mb-12" 
         alt="Aleppo About" 
+        onError={(e) => { e.currentTarget.src = 'https://picsum.photos/seed/about/1200/600' }}
       />
-      <div className="prose prose-lg max-w-none text-slate-700 leading-loose text-center">
+      <div className="prose prose-lg max-w-none text-slate-400 leading-loose">
         <p className="text-xl">
           يعاني حي الشيخ مقصود في مدينة حلب من ظروف إنسانية بالغة الصعوبة نتيجة سنوات من الحصار ونقص الخدمات الأساسية. هذه المنصة أُنشئت لتكون وسيلة آمنة وسريعة لتقديم الدعم المباشر للعائلات المحتاجة.
         </p>
@@ -314,17 +355,17 @@ const WhereView: React.FC = () => (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
        <div className="p-8 bg-emerald-50 rounded-3xl border border-emerald-100">
           <Package className="w-12 h-12 text-emerald-600 mx-auto mb-4" />
-          <h3 className="font-bold text-xl mb-2">الغذاء</h3>
+          <h3 className="font-bold text-xl mb-2 text-slate-800">الغذاء</h3>
           <p className="text-slate-600">توفير سلال غذائية متكاملة للأسر</p>
        </div>
        <div className="p-8 bg-blue-50 rounded-3xl border border-blue-100">
           <Stethoscope className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-          <h3 className="font-bold text-xl mb-2">الدواء</h3>
+          <h3 className="font-bold text-xl mb-2 text-slate-800">الدواء</h3>
           <p className="text-slate-600">تأمين الأدوية والمستلزمات الطبية</p>
        </div>
        <div className="p-8 bg-amber-50 rounded-3xl border border-amber-100">
           <Flame className="w-12 h-12 text-amber-600 mx-auto mb-4" />
-          <h3 className="font-bold text-xl mb-2">التدفئة</h3>
+          <h3 className="font-bold text-xl mb-2 text-slate-800">التدفئة</h3>
           <p className="text-slate-600">تأمين الحطب والوقود للشتاء</p>
        </div>
     </div>
@@ -336,10 +377,16 @@ const ImpactView: React.FC = () => (
     <h1 className="text-4xl font-black mb-12 text-center">الأثر والتقارير الميدانية</h1>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
       {IMPACT_REPORTS.map(report => (
-        <div key={report.id} className="bg-white p-8 rounded-3xl shadow-lg border border-slate-100">
-          <h3 className="text-2xl font-bold mb-4">{report.title}</h3>
+        <div key={report.id} className="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 overflow-hidden">
+          <div className="h-48 mb-6 overflow-hidden rounded-2xl">
+             <img src={report.imageUrl} className="w-full h-full object-cover" alt={report.title} />
+          </div>
+          <h3 className="text-2xl font-bold mb-4 text-slate-800">{report.title}</h3>
           <p className="text-slate-600 text-lg mb-4">{report.description}</p>
-          <span className="text-rose-600 font-bold">{report.date}</span>
+          <div className="flex justify-between items-center">
+            <span className="text-rose-600 font-bold">{report.date}</span>
+            <span className="px-3 py-1 bg-rose-50 text-rose-600 rounded-full text-xs font-bold uppercase">{report.category}</span>
+          </div>
         </div>
       ))}
     </div>
@@ -351,7 +398,7 @@ const DonorsView: React.FC = () => (
     <h1 className="text-4xl font-black mb-12">لوحة فاعلي الخير</h1>
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
       {MOCK_DONORS.map(donor => (
-        <div key={donor.id} className="bg-white p-8 rounded-3xl shadow-md border border-slate-100 font-bold text-xl flex items-center justify-center gap-3">
+        <div key={donor.id} className="bg-white p-8 rounded-3xl shadow-md border border-slate-100 font-bold text-xl flex items-center justify-center gap-3 hover:shadow-lg transition-shadow text-slate-800">
            <Heart className="w-5 h-5 text-rose-500 fill-rose-500" /> {donor.name}
         </div>
       ))}
@@ -363,7 +410,7 @@ const ContactView: React.FC = () => (
   <div className="container mx-auto px-4 py-16 text-center animate-fade-in-up">
     <h1 className="text-4xl font-black mb-8">تواصل معنا</h1>
     <div className="max-w-2xl mx-auto bg-white p-12 rounded-[3rem] shadow-xl border border-slate-100">
-       <p className="text-xl text-slate-600 mb-8">لأية استفسارات حول الحملة أو آلية التبرع، يرجى مراسلتنا:</p>
+       <p className="text-xl text-slate-600 mb-8 font-bold">لأية استفسارات حول الحملة أو آلية التبرع، يرجى مراسلتنا:</p>
        <div className="space-y-4">
           <div className="flex items-center justify-center gap-3 text-2xl font-bold text-rose-600">
              <Mail className="w-6 h-6" /> support@halab-aid.org
