@@ -346,7 +346,7 @@ const ImpactView: React.FC = () => (
         </div>
       ))}
     </div>
-  </section>
+  </div>
 );
 
 const DonorsView: React.FC = () => (
