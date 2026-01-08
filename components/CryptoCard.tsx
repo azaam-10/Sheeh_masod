@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Copy, Check, QrCode } from 'lucide-react';
-import { CryptoAddress } from '../types';
+import { CryptoAddress } from '../types.ts';
 
 interface CryptoCardProps {
   crypto: CryptoAddress;

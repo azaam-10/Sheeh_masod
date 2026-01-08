@@ -27,12 +27,12 @@ import {
   Flame,
   Camera
 } from 'lucide-react';
-import Navbar from './components/Navbar';
-import CryptoCard from './components/CryptoCard';
-import AnimatedCounter from './components/AnimatedCounter';
-import ImpactChart from './components/ImpactChart';
-import { CRYPTO_ADDRESSES, MOCK_DONORS, IMPACT_REPORTS, NAV_LINKS } from './constants';
-import { CRISIS_GALLERY } from './galleryData';
+import Navbar from './components/Navbar.tsx';
+import CryptoCard from './components/CryptoCard.tsx';
+import AnimatedCounter from './components/AnimatedCounter.tsx';
+import ImpactChart from './components/ImpactChart.tsx';
+import { CRYPTO_ADDRESSES, MOCK_DONORS, IMPACT_REPORTS, NAV_LINKS } from './constants.ts';
+import { CRISIS_GALLERY } from './galleryData.ts';
 
 type Tab = 'home' | 'about' | 'where' | 'impact' | 'donors' | 'contact' | 'donate';
 

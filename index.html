@@ -35,8 +35,9 @@
 {
   "imports": {
     "react": "https://esm.sh/react@^19.2.3",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
     "react/": "https://esm.sh/react@^19.2.3/",
+    "react-dom": "https://esm.sh/react-dom@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
     "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
     "recharts": "https://esm.sh/recharts@^3.6.0"
   }
@@ -45,5 +46,7 @@
 </head>
   <body class="bg-slate-50 text-slate-900 transition-colors duration-300">
     <div id="root"></div>
+    <!-- استدعاء ملف البداية ضروري جداً لتشغيل التطبيق -->
+    <script type="module" src="./index.tsx"></script>
   </body>
 </html>
