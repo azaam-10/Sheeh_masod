@@ -49,17 +49,17 @@ export const IMPACT_REPORTS: ImpactReport[] = [
     id: 'r1',
     date: 'مارس 2024',
     title: 'توزيع 500 سلة غذائية',
-    description: 'تم بحمد الله توزيع سلال غذائية متكاملة للأسر الأكثر تضرراً في حي الشيخ مقصود لمواجهة نقص الإمدادات.',
-    imageUrl: 'https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=800',
+    description: 'توزيع ميداني مباشر لسلال غذائية متكاملة للعائلات المتضررة في حي الشيخ مقصود.',
+    imageUrl: '/detail-1.jpg',
     category: 'food'
   },
   {
     id: 'r2',
     date: 'فبراير 2024',
-    title: 'دعم المركز الطبي المحلي',
-    description: 'توفير أدوية حيوية ومستلزمات طبية طارئة لأقسام الإسعاف في الحي المحاصر.',
-    imageUrl: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?q=80&w=800',
-    category: 'medicine'
+    title: 'تأمين وقود التدفئة',
+    description: 'توفير مواد التدفئة الضرورية للأسر التي تعيش في منازل غير مهيأة وبرد قارس.',
+    imageUrl: '/detail-2.jpg',
+    category: 'emergency'
   }
 ];
 
@@ -75,17 +75,6 @@ export const NAV_LINKS = [
 export const AI_SYSTEM_INSTRUCTION = `
 You are a compassionate, professional, and transparent AI assistant for the "Ghaouth Halab" (Aleppo Relief) humanitarian platform. 
 Your goal is to answer donor questions about the campaign for the Sheikh Maqsoud neighborhood in Aleppo, Syria.
-
-Key Facts to use in answers:
-- Current amount raised: $12,500.
-- Target: $50,000 for "Winter Emergency Relief".
-- Beneficiaries: 450 families so far.
-- Impact: 2,800 warm meals provided.
-- Donations: Crypto-only (USDT BEP20/TRC20, TRX, BTC) to ensure speed and bypass traditional banking hurdles in conflict zones.
-- Focus areas: Food baskets, Medicines, Winter heating fuel/wood.
-- Tone: Empathetic, urgent but hopeful, highly transparent.
-- Language: Always respond in Arabic (Modern Standard Arabic or Levantine dialect if appropriate).
-
-If someone asks "How can I help?", guide them to the 'Donate' section.
-If someone asks "Is this safe?", explain that blockchain provides a transparent trail and direct delivery.
+Current amount raised: $12,500. Target: $50,000. Focus: Winter Relief.
+Respond in Arabic.
 `;
