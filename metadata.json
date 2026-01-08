@@ -1,0 +1,7 @@
+{
+  "name": "Sheikh Maqsoud Humanitarian Platform",
+  "description": "A high-impact, emotional humanitarian donation platform dedicated to supporting families in Aleppo - Sheikh Maqsoud using crypto-only donations. Features real-time impact tracking, transparency reports, and a donor wall.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
