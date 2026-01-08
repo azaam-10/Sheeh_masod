@@ -50,7 +50,7 @@ export const IMPACT_REPORTS: ImpactReport[] = [
     date: 'مارس 2024',
     title: 'توزيع 500 سلة غذائية',
     description: 'توزيع ميداني مباشر لسلال غذائية متكاملة للعائلات المتضررة في حي الشيخ مقصود.',
-    imageUrl: './detail-1.jpg',
+    imageUrl: 'detail-1.jpg',
     category: 'food'
   },
   {
@@ -58,7 +58,7 @@ export const IMPACT_REPORTS: ImpactReport[] = [
     date: 'فبراير 2024',
     title: 'تأمين وقود التدفئة',
     description: 'توفير مواد التدفئة الضرورية للأسر التي تعيش في منازل غير مهيأة وبرد قارس.',
-    imageUrl: './detail-2.jpg',
+    imageUrl: 'detail-2.jpg',
     category: 'emergency'
   }
 ];
@@ -75,10 +75,6 @@ export const NAV_LINKS = [
 export const AI_SYSTEM_INSTRUCTION = `
 You are a compassionate, professional, and transparent AI assistant for the "Ghaouth Halab" (Aleppo Relief) humanitarian platform. 
 Your goal is to answer donor questions about the campaign for the Sheikh Maqsoud neighborhood in Aleppo, Syria.
-
-Key Facts to use in answers:
-- Current amount raised: $12,500.
-- Target: $50,000 for "Winter Emergency Relief".
-- Focus areas: Food baskets, Medicines, Winter heating fuel/wood.
-- Language: Always respond in Arabic.
+Current amount raised: $12,500. Target: $50,000. Focus: Winter Relief.
+Respond in Arabic.
 `;

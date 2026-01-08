@@ -56,7 +56,8 @@ const App: React.FC = () => {
     if (tabName === 'donate') {
       setActiveTab('home');
       setTimeout(() => {
-        document.getElementById('donate')?.scrollIntoView({ behavior: 'smooth' });
+        const el = document.getElementById('donate');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
       }, 100);
     } else {
       setActiveTab(tabName as Tab);
@@ -94,7 +95,7 @@ const App: React.FC = () => {
       <AIChat />
 
       <footer className={`${isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200'} pt-24 pb-12 border-t mt-20`}>
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 text-right" dir="rtl">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
             <div className="lg:col-span-1">
               <div className="flex items-center gap-2 text-2xl font-black mb-6">
@@ -161,7 +162,7 @@ const App: React.FC = () => {
             onClick={() => handleNavClick('#donate')}
             className="w-full py-4 bg-rose-600 text-white rounded-2xl font-black text-center shadow-2xl shadow-rose-200 flex items-center justify-center gap-3"
           >
-            تبرع الآن وكن سببًا في إنقاذ حياة
+            تبرع الآن وأنقذ حياة
             <Heart className="w-5 h-5 fill-white" />
           </button>
         </div>
@@ -178,11 +179,12 @@ const HomeView: React.FC<{ onDonateClick: () => void, onGalleryClick: () => void
       <section className="relative min-h-[95vh] flex items-center pt-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="./hero-bg.jpg" 
+            src="hero-bg.jpg" 
             alt="Hero Syrian Child" 
             className="w-full h-full object-cover"
+            onError={(e) => { e.currentTarget.src = 'gallery-1.jpg'; }}
           />
-          <div className={`absolute inset-0 ${isDarkMode ? 'bg-gradient-to-b from-slate-900/40 via-slate-900/80 to-slate-900' : 'bg-gradient-to-b from-black/50 via-black/20 to-slate-50/20'}`}></div>
+          <div className={`absolute inset-0 ${isDarkMode ? 'bg-gradient-to-b from-slate-900/40 via-slate-900/80 to-slate-900' : 'bg-gradient-to-b from-black/60 via-black/20 to-slate-50/10'}`}></div>
         </div>
 
         <div className="container mx-auto px-4 z-10 text-center">
@@ -200,8 +202,8 @@ const HomeView: React.FC<{ onDonateClick: () => void, onGalleryClick: () => void
             تبرعك المباشر بالعملات الرقمية هو أسرع وسيلة لإيصال الدفء والغذاء لأطفال يواجهون الموت من البرد.
           </p>
 
-          <div className={`${isDarkMode ? 'bg-slate-800/90' : 'bg-white/90'} max-w-xl mx-auto mb-12 backdrop-blur-md p-8 rounded-[2.5rem] border border-white/20 shadow-2xl`}>
-             <div className="flex justify-between items-end mb-4">
+          <div className={`${isDarkMode ? 'bg-slate-800/90' : 'bg-white/95'} max-w-xl mx-auto mb-12 backdrop-blur-md p-8 rounded-[2.5rem] border border-white/20 shadow-2xl`}>
+             <div className="flex justify-between items-end mb-4" dir="rtl">
                 <div className="text-right">
                   <span className="block text-xs text-slate-500 font-bold mb-1 uppercase tracking-wider">تم جمع</span>
                   <span className="text-4xl font-black text-rose-600">${CURRENT_RAISED.toLocaleString()}</span>
@@ -247,7 +249,7 @@ const HomeView: React.FC<{ onDonateClick: () => void, onGalleryClick: () => void
       <section className={`py-32 ${isDarkMode ? 'bg-slate-950' : 'bg-white'} overflow-hidden`}>
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-5xl font-black mb-6">واقع يدمي القلوب</h2>
-          <p className="text-slate-500 mb-16 max-w-3xl mx-auto text-xl leading-relaxed font-bold">صور حقيقية من حي الشيخ مقصود ومخيمات النزوح، حيث يصارع الآلاف من أجل البقاء.</p>
+          <p className="text-slate-500 mb-16 max-w-3xl mx-auto text-xl leading-relaxed font-black">صور حقيقية من حي الشيخ مقصود ومخيمات النزوح، حيث يصارع الآلاف من أجل البقاء.</p>
           <div className="columns-2 md:columns-3 lg:columns-4 gap-6 space-y-6">
             {CRISIS_GALLERY.map((img, i) => (
               <div key={i} className="relative group overflow-hidden rounded-[2rem] shadow-2xl break-inside-avoid border-4 border-white/10">
@@ -255,8 +257,9 @@ const HomeView: React.FC<{ onDonateClick: () => void, onGalleryClick: () => void
                   src={img.url} 
                   className="w-full h-auto object-cover group-hover:scale-105 transition-all duration-500" 
                   alt={img.title}
+                  loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6 text-right">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6 text-right" dir="rtl">
                    <p className="text-white text-lg font-black leading-tight w-full">{img.title}</p>
                 </div>
               </div>
@@ -270,19 +273,19 @@ const HomeView: React.FC<{ onDonateClick: () => void, onGalleryClick: () => void
           <div className="flex flex-col lg:flex-row gap-20 items-center">
             <div className="lg:w-1/2 relative">
                <div className="grid grid-cols-2 gap-6">
-                  <img src="./detail-1.jpg" className="rounded-[2.5rem] shadow-2xl h-80 w-full object-cover border-8 border-white" alt="Field 1" />
-                  <img src="./detail-2.jpg" className="rounded-[2.5rem] shadow-2xl mt-12 h-80 w-full object-cover border-8 border-white" alt="Field 2" />
+                  <img src="detail-1.jpg" className="rounded-[2.5rem] shadow-2xl h-80 w-full object-cover border-8 border-white" alt="Field 1" />
+                  <img src="detail-2.jpg" className="rounded-[2.5rem] shadow-2xl mt-12 h-80 w-full object-cover border-8 border-white" alt="Field 2" />
                </div>
                <div className="absolute -bottom-6 -left-6 bg-rose-600 text-white p-6 rounded-3xl shadow-2xl font-black text-2xl animate-bounce">
                  رسالة من الميدان
                </div>
             </div>
-            <div className="lg:w-1/2">
+            <div className="lg:w-1/2 text-right" dir="rtl">
               <h2 className="text-5xl font-black mb-8 leading-tight">بين صقيع الشتاء <br />وركـام المـنازل.. <br /><span className="text-rose-600 underline">أنت أملهم الوحيد</span></h2>
               <p className="text-2xl text-slate-500 leading-relaxed mb-10 font-black">
                 حي الشيخ مقصود يعاني من حصار يمنع وصول أبسط المساعدات التقليدية. العملات الرقمية هي وسيلتنا الوحيدة لكسر القيود وإيصال الغذاء والتدفئة للأطفال.
               </p>
-              <div className="flex flex-wrap gap-6">
+              <div className="flex flex-wrap gap-6 justify-end">
                  <div className={`${isDarkMode ? 'bg-slate-800 text-white' : 'bg-white text-slate-800'} flex items-center gap-3 px-6 py-4 rounded-2xl font-black shadow-xl border border-slate-200/10`}>
                     <Snowflake className="w-6 h-6 text-blue-500" />
                     برد ينهش العظام
@@ -322,13 +325,14 @@ const AboutView: React.FC = () => (
       <h1 className="text-5xl font-black mb-12">عن حملة الشيخ مقصود</h1>
       <div className="relative mb-16 group">
         <img 
-          src="./about-main.jpg" 
+          src="about-main.jpg" 
           className="w-full h-[600px] object-cover rounded-[4rem] shadow-2xl filter brightness-75 group-hover:brightness-90 transition-all" 
           alt="About" 
+          onError={(e) => { e.currentTarget.src = 'gallery-2.jpg'; }}
         />
         <div className="absolute inset-0 flex items-center justify-center p-12">
            <div className="bg-black/60 backdrop-blur-md p-10 rounded-[3rem] border border-white/10 max-w-3xl">
-              <p className="text-2xl text-white font-black leading-relaxed text-right">
+              <p className="text-2xl text-white font-black leading-relaxed text-right" dir="rtl">
                 هذه المنصة مبادرة إنسانية تهدف لتأمين الاحتياجات الأساسية لسكان حي الشيخ مقصود في حلب. نعتمد العملات الرقمية لضمان سرعة التحويل وتجاوز العقبات البنكية، لضمان وصول كل دولار لفاعله الحقيقي.
               </p>
            </div>
@@ -373,7 +377,7 @@ const ImpactView: React.FC = () => (
           <div className="h-72 overflow-hidden">
              <img src={report.imageUrl} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={report.title} />
           </div>
-          <div className="p-10 text-right">
+          <div className="p-10 text-right" dir="rtl">
             <h3 className="text-3xl font-black mb-6 text-slate-900">{report.title}</h3>
             <p className="text-slate-500 text-xl mb-8 leading-relaxed font-black">{report.description}</p>
             <div className="flex justify-between items-center pt-8 border-t border-slate-100">
@@ -406,7 +410,7 @@ const DonorsView: React.FC = () => (
 const ContactView: React.FC = () => (
   <div className="container mx-auto px-4 py-24 text-center animate-fade-in-up">
     <h1 className="text-5xl font-black mb-12">تواصل معنا</h1>
-    <div className="max-w-3xl mx-auto bg-white p-20 rounded-[4rem] shadow-2xl border border-slate-100">
+    <div className="max-w-3xl mx-auto bg-white p-20 rounded-[4rem] shadow-2xl border border-slate-100" dir="rtl">
        <p className="text-2xl text-slate-600 mb-12 font-black leading-relaxed">لأي استفسار عن حالة الأسر أو الحملة، راسلنا مباشرة:</p>
        <div className="space-y-6">
           <a href="mailto:support@halab-aid.org" className="flex items-center justify-center gap-4 text-3xl font-black text-rose-600 hover:scale-105 transition-transform">
