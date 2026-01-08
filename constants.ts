@@ -44,30 +44,13 @@ export const MOCK_DONORS: Donor[] = [
   { id: '6', name: 'Laila K.', country: 'Lebanon', date: 'منذ 3 أيام' },
 ];
 
-export const IMPACT_REPORTS: ImpactReport[] = [
-  {
-    id: 'r1',
-    date: 'مارس 2024',
-    title: 'توزيع 500 سلة غذائية',
-    description: 'توزيع ميداني مباشر لسلال غذائية متكاملة للعائلات المتضررة في حي الشيخ مقصود.',
-    imageUrl: '/detail-1.jpg',
-    category: 'food'
-  },
-  {
-    id: 'r2',
-    date: 'فبراير 2024',
-    title: 'تأمين وقود التدفئة',
-    description: 'توفير مواد التدفئة الضرورية للأسر التي تعيش في منازل غير مهيأة وبرد قارس.',
-    imageUrl: '/detail-2.jpg',
-    category: 'emergency'
-  }
-];
+// تمت إزالة بيانات التقارير الميدانية
+export const IMPACT_REPORTS: ImpactReport[] = [];
 
 export const NAV_LINKS = [
   { name: 'الرئيسية', href: '#home' },
   { name: 'عن الحملة', href: '#about' },
   { name: 'أين تذهب التبرعات؟', href: '#where' },
-  { name: 'الأثر والتقارير', href: '#impact' },
   { name: 'فاعلو الخير', href: '#donors' },
   { name: 'تبرع الآن', href: '#donate', primary: true },
 ];
