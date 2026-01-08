@@ -1,5 +1,5 @@
 
-import { CryptoAddress, Donor, ImpactReport } from './types';
+import { CryptoAddress, Donor, ImpactReport } from './types.ts';
 
 export const CRYPTO_ADDRESSES: CryptoAddress[] = [
   {
